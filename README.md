@@ -5,7 +5,7 @@ A weather station for your Kindle
 
 ## How to install it?
 
-Well, as the Kindle e-Readers doesn't support native apps or things like that, the only thing we can do is to open a web with the Experimental Browser and to the best we can with it. So the project is just a web page that you have to edit with your own values, publish it somewhere and access it with the Kindle's browser.
+Well, as the Kindle e-Readers don't support native apps or things like that, the only thing we can do is to open a web with the Experimental Browser and to the best we can with it. So the project is just a web page that you have to edit with your own values, publish it somewhere and access it with the Kindle's browser.
 
 Here's a list with the steps to achieve it:
 
