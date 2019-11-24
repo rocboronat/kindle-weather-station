@@ -1,0 +1,22 @@
+#temperatureLayout {
+  position: absolute;
+  top: 35%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+}
+
+#bottomLayout {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+#temperatureContent {
+  -webkit-transform: rotate(90deg);
+  font-size: 15em;
+}
+
+#bottomContent {
+  -webkit-transform: rotate(90deg);
+  font-size: 2em;
+}
