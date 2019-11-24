@@ -1,4 +1,3 @@
-var iterations = 0
 var timezoneOffset = 1 * 60 * 60 * 1000
 const url = 'https://api.openweathermap.org/data/2.5/weather?lat=yourLat&lon=yourLon&units=metric&appid=yourToken';
 
@@ -10,8 +9,6 @@ function onPageLoad() {
 }
 
 function updateScreen() {
-  iterations++
-
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("GET", url, false); // false for synchronous request
   xmlHttp.send(null);
@@ -28,7 +25,6 @@ function updateScreen() {
 
   document.getElementById("temperatureContent").innerHTML = "" + parseFloat(temp).toFixed(1) + "\xB0";
   document.getElementById("bottomContent").innerHTML =
-    "Requests: " + iterations + "<br/>" +
     "Min: " + parseFloat(tempMin).toFixed(1) + "\xB0" + "<br/>" +
     "Max: " + parseFloat(tempMax).toFixed(1) + "\xB0" + "<br/>" +
     "Sunrise: " + timeSunrise + "<br/>" +
