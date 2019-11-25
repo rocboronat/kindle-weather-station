@@ -5,39 +5,51 @@ var timezone = getQueryString('timezone')
 
 var timezoneOffset = timezone * 60 * 60 * 1000
 
-const baseUrl = 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={token}';
-var url = ""
+const baseWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={token}';
+const baseUvUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat={lat}&lon={lon}&units=metric&appid={token}'
+var weatherUrl = ""
+var uvUrl = ""
 
 function onPageLoad() {
-  url = baseUrl
+  weatherUrl = baseWeatherUrl
+    .replace("{lat}", lat)
+    .replace("{lon}", lon)
+    .replace("{token}", token)
+  uvUrl = baseUvUrl
     .replace("{lat}", lat)
     .replace("{lon}", lon)
     .replace("{token}", token)
 
   setInterval(function() {
     updateScreen();
-  }, 60000);
+  }, 120000);
   updateScreen();
 }
 
 function updateScreen() {
   try {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false); // false for synchronous request
-    xmlHttp.send(null);
+    var weatherRequest = new XMLHttpRequest();
+    weatherRequest.open("GET", weatherUrl, false); // false for synchronous request
+    weatherRequest.send(null);
+    weatherResponse = JSON.parse(weatherRequest.responseText);
 
-    response = JSON.parse(xmlHttp.responseText);
+    var uvRequest = new XMLHttpRequest();
+    uvRequest.open("GET", uvUrl, false); // false for synchronous request
+    uvRequest.send(null);
+    uvResponse = JSON.parse(uvRequest.responseText);
 
-    temp = response.main.temp;
-    tempMin = response.main.temp_min;
-    tempMax = response.main.temp_max;
-    sunriseDate = new Date(response.sys.sunrise * 1000 + timezoneOffset);
-    sunsetDate = new Date(response.sys.sunset * 1000 + timezoneOffset)
+    temp = weatherResponse.main.temp;
+    tempMin = weatherResponse.main.temp_min;
+    tempMax = weatherResponse.main.temp_max;
+    sunriseDate = new Date(weatherResponse.sys.sunrise * 1000 + timezoneOffset);
+    sunsetDate = new Date(weatherResponse.sys.sunset * 1000 + timezoneOffset)
     timeSunrise = sunriseDate.getHours() + ":" + sunriseDate.getMinutes();
     timeSunset = sunsetDate.getHours() + ":" + sunsetDate.getMinutes();
+    uvIndex = uvResponse.value;
 
     document.getElementById("temperatureContent").innerHTML = "" + parseFloat(temp).toFixed(1) + "\xB0";
     document.getElementById("bottomContent").innerHTML =
+      "UV Index: " + uvIndex + "<br/>" +
       "Min: " + parseFloat(tempMin).toFixed(1) + "\xB0" + "<br/>" +
       "Max: " + parseFloat(tempMax).toFixed(1) + "\xB0" + "<br/>" +
       "Sunrise: " + timeSunrise + "<br/>" +
