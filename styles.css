@@ -14,9 +14,11 @@
 #temperatureContent {
   -webkit-transform: rotate(90deg);
   font-size: 15em;
+  font-family: 'Nunito', sans-serif;
 }
 
 #bottomContent {
   -webkit-transform: rotate(90deg);
   font-size: 2em;
+  font-family: 'Nunito', sans-serif;
 }
