@@ -1,7 +1,21 @@
-var timezoneOffset = 1 * 60 * 60 * 1000
-const url = 'https://api.openweathermap.org/data/2.5/weather?lat=yourLat&lon=yourLon&units=metric&appid=yourToken';
+var urlParams = new URLSearchParams(window.location.search);
+
+var lat = urlParams.get('lat')
+var lon = urlParams.get('lon')
+var token = urlParams.get('token')
+var timezone = urlParams.get('timezone')
+
+var timezoneOffset = timezone * 60 * 60 * 1000
+
+const baseUrl = 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={token}';
+var url = ""
 
 function onPageLoad() {
+  url = baseUrl
+    .replace("{lat}", lat)
+    .replace("{lon}", lon)
+    .replace("{token}", token)
+
   setInterval(function() {
     updateScreen();
   }, 60000);
