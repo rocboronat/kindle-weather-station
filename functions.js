@@ -1,9 +1,7 @@
-var urlParams = new URLSearchParams(window.location.search);
-
-var lat = urlParams.get('lat')
-var lon = urlParams.get('lon')
-var token = urlParams.get('token')
-var timezone = urlParams.get('timezone')
+var lat = getQueryString('lat')
+var lon = getQueryString('lon')
+var token = getQueryString('token')
+var timezone = getQueryString('timezone')
 
 var timezoneOffset = timezone * 60 * 60 * 1000
 
@@ -47,5 +45,17 @@ function updateScreen() {
   } catch (e) {
     console.error(e);
     document.getElementById("temperatureContent").innerHTML = "Error";
+  }
+}
+
+function getQueryString(key) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    if (pair[0] == key) {
+      console.log(key + " = " + pair[1]);
+      return pair[1];
+    }
   }
 }
