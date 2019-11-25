@@ -23,24 +23,29 @@ function onPageLoad() {
 }
 
 function updateScreen() {
-  var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("GET", url, false); // false for synchronous request
-  xmlHttp.send(null);
+  try {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", url, false); // false for synchronous request
+    xmlHttp.send(null);
 
-  response = JSON.parse(xmlHttp.responseText);
+    response = JSON.parse(xmlHttp.responseText);
 
-  temp = response.main.temp;
-  tempMin = response.main.temp_min;
-  tempMax = response.main.temp_max;
-  sunriseDate = new Date(response.sys.sunrise * 1000 + timezoneOffset);
-  sunsetDate = new Date(response.sys.sunset * 1000 + timezoneOffset)
-  timeSunrise = sunriseDate.getHours() + ":" + sunriseDate.getMinutes();
-  timeSunset = sunsetDate.getHours() + ":" + sunsetDate.getMinutes();
+    temp = response.main.temp;
+    tempMin = response.main.temp_min;
+    tempMax = response.main.temp_max;
+    sunriseDate = new Date(response.sys.sunrise * 1000 + timezoneOffset);
+    sunsetDate = new Date(response.sys.sunset * 1000 + timezoneOffset)
+    timeSunrise = sunriseDate.getHours() + ":" + sunriseDate.getMinutes();
+    timeSunset = sunsetDate.getHours() + ":" + sunsetDate.getMinutes();
 
-  document.getElementById("temperatureContent").innerHTML = "" + parseFloat(temp).toFixed(1) + "\xB0";
-  document.getElementById("bottomContent").innerHTML =
-    "Min: " + parseFloat(tempMin).toFixed(1) + "\xB0" + "<br/>" +
-    "Max: " + parseFloat(tempMax).toFixed(1) + "\xB0" + "<br/>" +
-    "Sunrise: " + timeSunrise + "<br/>" +
-    "Sunset: " + timeSunset;
+    document.getElementById("temperatureContent").innerHTML = "" + parseFloat(temp).toFixed(1) + "\xB0";
+    document.getElementById("bottomContent").innerHTML =
+      "Min: " + parseFloat(tempMin).toFixed(1) + "\xB0" + "<br/>" +
+      "Max: " + parseFloat(tempMax).toFixed(1) + "\xB0" + "<br/>" +
+      "Sunrise: " + timeSunrise + "<br/>" +
+      "Sunset: " + timeSunset;
+  } catch (e) {
+    console.error(e);
+    document.getElementById("temperatureContent").innerHTML = "Error";
+  }
 }
