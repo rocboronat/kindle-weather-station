@@ -6,7 +6,7 @@ var timezone = getQueryString('timezone')
 var timezoneOffset = timezone * 60 * 60 * 1000
 
 const baseWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={token}';
-const baseUvUrl = 'http://api.openweathermap.org/data/2.5/uvi?lat={lat}&lon={lon}&units=metric&appid={token}'
+const baseUvUrl = 'https://api.openweathermap.org/data/2.5/uvi?lat={lat}&lon={lon}&units=metric&appid={token}'
 var weatherUrl = ""
 var uvUrl = ""
 
