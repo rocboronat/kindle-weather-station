@@ -21,35 +21,26 @@ function onPageLoad() {
     .replace("{token}", token)
 
   setInterval(function() {
-    updateScreen();
+    updateScreen().then(data => console.log(data));
   }, 120000);
-  updateScreen();
+  updateScreen().then(data => console.log(data));
 }
 
-function updateScreen() {
+async function updateScreen() {
   try {
-    var weatherRequest = new XMLHttpRequest();
-    weatherRequest.open("GET", weatherUrl, false); // false for synchronous request
-    weatherRequest.send(null);
-    weatherResponse = JSON.parse(weatherRequest.responseText);
+    let request = await fetch(weatherUrl);
+    let response = await request.json();
 
-    var uvRequest = new XMLHttpRequest();
-    uvRequest.open("GET", uvUrl, false); // false for synchronous request
-    uvRequest.send(null);
-    uvResponse = JSON.parse(uvRequest.responseText);
-
-    temp = weatherResponse.main.temp;
-    tempMin = weatherResponse.main.temp_min;
-    tempMax = weatherResponse.main.temp_max;
-    sunriseDate = new Date(weatherResponse.sys.sunrise * 1000 + timezoneOffset);
-    sunsetDate = new Date(weatherResponse.sys.sunset * 1000 + timezoneOffset)
+    let temp = response.main.temp;
+    tempMin = response.main.temp_min;
+    tempMax = response.main.temp_max;
+    sunriseDate = new Date(response.sys.sunrise * 1000 + timezoneOffset);
+    sunsetDate = new Date(response.sys.sunset * 1000 + timezoneOffset)
     timeSunrise = sunriseDate.getHours() + ":" + sunriseDate.getMinutes();
     timeSunset = sunsetDate.getHours() + ":" + sunsetDate.getMinutes();
-    uvIndex = uvResponse.value;
 
     document.getElementById("temperatureContent").innerHTML = "" + parseFloat(temp).toFixed(1) + "\xB0";
     document.getElementById("bottomContent").innerHTML =
-      "UV Index: " + uvIndex + "<br/>" +
       "Min: " + parseFloat(tempMin).toFixed(1) + "\xB0" + "<br/>" +
       "Max: " + parseFloat(tempMax).toFixed(1) + "\xB0" + "<br/>" +
       "Sunrise: " + timeSunrise + "<br/>" +
