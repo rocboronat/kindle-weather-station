@@ -39,8 +39,13 @@ async function updateScreen() {
     timeSunrise = sunriseDate.getHours() + ":" + sunriseDate.getMinutes();
     timeSunset = sunsetDate.getHours() + ":" + sunsetDate.getMinutes();
 
+    let uvRequest = await fetch(uvUrl);
+    let uvResponse = await uvRequest.json();
+    let uvIndex = uvResponse.value;
+
     document.getElementById("temperatureContent").innerHTML = "" + parseFloat(temp).toFixed(1) + "\xB0";
     document.getElementById("bottomContent").innerHTML =
+      "UV Index: " + uvIndex + "<br/>" +
       "Min: " + parseFloat(tempMin).toFixed(1) + "\xB0" + "<br/>" +
       "Max: " + parseFloat(tempMax).toFixed(1) + "\xB0" + "<br/>" +
       "Sunrise: " + timeSunrise + "<br/>" +
