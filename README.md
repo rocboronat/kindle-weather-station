@@ -11,7 +11,7 @@ Here's a list with the steps to achieve it:
 
 1. Sign up to [OpenWeather](https://openweathermap.org) and get your own API token
 2. Pass the timezone where you live to `int`, knowing that `UTC+1` will be just `1`, `UTC-7` will be `-7` and so on
-3. Replace the four `{values}` by your own ones in this URL: `https://fewlaps.com/weather/index.html?lat={lat}&lon={lon}&token={token}&timezone={timezone}`
+3. Replace the four `{values}` by your own ones in this URL: `https://rocboronat.github.io/kindle-weather-station/index.html?lat={lat}&lon={lon}&token={token}&timezone={timezone}`
 4. Type in `~ds` in your Kindle's main screen search box to disable the screensaver
 5. Open the Kindle's Experimental Browser and access the URL you just edited
 6. Enjoy!
